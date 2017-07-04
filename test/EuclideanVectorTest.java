@@ -12,7 +12,7 @@ public class EuclideanVectorTest {
 
     @Test
     public void testVectorInitializationThroughList() {
-        EuclideanVector<Double> v = new EuclideanVector(Arrays.asList(5.0, 6.0, 7.0));
+        EuclideanVector v = new EuclideanVector(Arrays.asList(5.0, 6.0, 7.0));
         assertEquals(v.getSize(), 3);
         assertEquals(v.getComponentAt(0), 5.0, 0);
         assertEquals(v.getComponentAt(1), 6.0, 0);
@@ -21,7 +21,7 @@ public class EuclideanVectorTest {
 
     @Test
     public void testVectorInitializationThroughVarArgs() {
-        EuclideanVector<Integer> v = new EuclideanVector(5, 6, 7);
+        EuclideanVector v = new EuclideanVector(5.0, 6.0, 7.0);
         assertEquals(v.getSize(), 3);
         assertEquals(v.getComponentAt(0), 5, 0);
         assertEquals(v.getComponentAt(1), 6, 0);
@@ -35,8 +35,14 @@ public class EuclideanVectorTest {
     }
 
     @Test
-    public void testNotEquals() {
+    public void testNotEqualsDifferentSize() {
         EuclideanVector v = new EuclideanVector(5.0, 6.0, 7.0);
         assertNotEquals(new EuclideanVector(5.0, 6.0, 7.0, 8.0), v);
+    }
+
+    @Test
+    public void testNotEqualsDifferentValues() {
+        EuclideanVector v = new EuclideanVector(5.0, 6.0, 7.0);
+        assertNotEquals(new EuclideanVector(5.0, 6.0, 7.1), v);
     }
 }

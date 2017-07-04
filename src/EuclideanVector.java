@@ -5,19 +5,21 @@ import java.util.List;
 /**
  * Created by michael on 7/4/17.
  */
-public class EuclideanVector<T extends Number> {
+public class EuclideanVector {
 
-    final private List<T> mComponents;
+    private static final double EPSILON = 0.000001;
 
-    public EuclideanVector(T... components) {
+    final private List<Double> mComponents;
+
+    public EuclideanVector(Double... components) {
         mComponents = Arrays.asList(components);
     }
 
-    public EuclideanVector(List<T> components) {
+    public EuclideanVector(List<Double> components) {
         mComponents = components;
     }
 
-    public T getComponentAt(int index) {
+    public double getComponentAt(int index) {
         return mComponents.get(index);
     }
 
@@ -29,7 +31,18 @@ public class EuclideanVector<T extends Number> {
     public boolean equals(Object o) {
         if (o instanceof EuclideanVector) {
             EuclideanVector v = (EuclideanVector) o;
-            return mComponents.equals(v.mComponents);
+
+            if (getSize() != v.getSize()) {
+                return false;
+            }
+
+            for (int i = 0; i < getSize(); i++) {
+                if (Math.abs(getComponentAt(i) - v.getComponentAt(i)) > EPSILON) {
+                    return false;
+                }
+            }
+
+            return true;
         } else {
             return false;
         }
@@ -38,5 +51,23 @@ public class EuclideanVector<T extends Number> {
     @Override
     public int hashCode() {
         return mComponents.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("[");
+
+        for (int i = 0; i < mComponents.size(); i++) {
+            builder.append(mComponents.get(i));
+            if (i < mComponents.size() - 1) {
+                builder.append(", ");
+            }
+        }
+
+        builder.append("]");
+
+        return builder.toString();
     }
 }
