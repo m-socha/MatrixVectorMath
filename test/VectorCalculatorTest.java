@@ -2,6 +2,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -103,6 +105,30 @@ public class VectorCalculatorTest {
 
         EuclideanVector result = VectorCalculator.cross(v1, v2);
         assertEquals(new EuclideanVector(-18.0, 39.0, 33.0), result);
+    }
+
+    @Test
+    public void multiplyWithMatrixSizeMismatchTest() throws VectorCalculator.VectorMatrixMultiplicationIncorrectSizeException {
+        EuclideanMatrix matrix = new EuclideanMatrix(
+                Arrays.asList(4.0, 5.0, 4.0, 5.0),
+                Arrays.asList(4.0, 5.0, 2.0, 5.0)
+        );
+        EuclideanVector vector = new EuclideanVector(3.0, -2.0, 4.0);
+
+        expectedException.expect(VectorCalculator.VectorMatrixMultiplicationIncorrectSizeException.class);
+        VectorCalculator.multiplyWithMatrix(matrix, vector);
+    }
+
+    @Test
+    public void multiplyWithMatrixTest() throws VectorCalculator.VectorMatrixMultiplicationIncorrectSizeException {
+        EuclideanMatrix matrix = new EuclideanMatrix(
+                Arrays.asList(4.0, 5.0, -4.0),
+                Arrays.asList(14.0, -5.0, 2.0)
+        );
+        EuclideanVector vector = new EuclideanVector(3.0, -2.0, 4.0);
+
+        EuclideanVector result = VectorCalculator.multiplyWithMatrix(matrix, vector);
+        assertEquals(new EuclideanVector(-14.0, 60.0), result);
     }
 
     @Test

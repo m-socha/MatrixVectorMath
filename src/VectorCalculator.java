@@ -62,6 +62,25 @@ public class VectorCalculator {
         }
     }
 
+    public static class VectorMatrixMultiplicationIncorrectSizeException extends Exception {
+        private EuclideanMatrix mMatrix;
+        private EuclideanVector mVector;
+
+        public VectorMatrixMultiplicationIncorrectSizeException(EuclideanMatrix matrix, EuclideanVector vector) {
+            super();
+            mMatrix = matrix;
+            mVector = vector;
+        }
+
+        public EuclideanMatrix getMatrix() {
+            return mMatrix;
+        }
+
+        public EuclideanVector getVector() {
+            return mVector;
+        }
+    }
+
     public static class DivisionByZeroException extends Exception {
         private VectorOperation mOperation;
 
@@ -127,6 +146,22 @@ public class VectorCalculator {
         result.add(v1.getComponentAt(1)*v2.getComponentAt(2) - v1.getComponentAt(2)*v2.getComponentAt(1));
         result.add(v1.getComponentAt(2)*v2.getComponentAt(0) - v1.getComponentAt(0)*v2.getComponentAt(2));
         result.add(v1.getComponentAt(0)*v2.getComponentAt(1) - v1.getComponentAt(1)*v2.getComponentAt(0));
+        return new EuclideanVector(result);
+    }
+
+    public static EuclideanVector multiplyWithMatrix(EuclideanMatrix matrix, EuclideanVector vector) throws VectorMatrixMultiplicationIncorrectSizeException {
+        if (matrix.getNumCols() != vector.getSize()) {
+            throw new VectorMatrixMultiplicationIncorrectSizeException(matrix, vector);
+        }
+
+        List<Double> result = new ArrayList();
+        for (int row = 0; row < matrix.getNumRows(); row++) {
+            double dotProduct = 0;
+            for (int i = 0; i < vector.getSize(); i++) {
+                dotProduct += matrix.getEntryAt(row, i) * vector.getComponentAt(i);
+            }
+            result.add(row, dotProduct);
+        }
         return new EuclideanVector(result);
     }
 
