@@ -236,4 +236,28 @@ public class MatrixCalculatorTest {
         double result = MatrixCalculator.determinant(matrix);
         assertEquals(2952, result, 0);
     }
+
+    @Test
+    public void testTraceNotSquare() throws MatrixCalculator.MatrixNotSquareException {
+        EuclideanMatrix matrix = new EuclideanMatrix(
+                Arrays.asList(12.0, 4.0, 12.0),
+                Arrays.asList(1.0, -5.0, -6.0)
+        );
+
+        expectedException.expect(MatrixCalculator.MatrixNotSquareException.class);
+        MatrixCalculator.trace(matrix);
+    }
+
+    @Test
+    public void testTrace() throws MatrixCalculator.MatrixNotSquareException {
+        EuclideanMatrix matrix = new EuclideanMatrix(
+                Arrays.asList(12.0, -4.0, 5.0, 1.0),
+                Arrays.asList(2.0, 5.0, 4.0, 2.0),
+                Arrays.asList(-1.0, 5.0, -4.0, -3.0),
+                Arrays.asList(-12.0, -7.0, 21.0, 2.0)
+        );
+
+        double result = MatrixCalculator.trace(matrix);
+        assertEquals(15.0, result, 0);
+    }
 }

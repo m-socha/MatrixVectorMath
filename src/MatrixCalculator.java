@@ -7,7 +7,7 @@ import java.util.List;
 public class MatrixCalculator {
 
     public enum MatrixOperation {
-        ADDITION, MINUS, DETERMINANT
+        ADDITION, MINUS, DETERMINANT, TRACE
     }
 
     public static class MatrixUnequalSizeException extends Exception {
@@ -177,6 +177,19 @@ public class MatrixCalculator {
                 }
                 return result;
         }
+    }
+
+    public static double trace(EuclideanMatrix matrix) throws MatrixNotSquareException {
+        if (matrix.getNumRows() != matrix.getNumCols()) {
+            throw new MatrixNotSquareException(matrix, MatrixOperation.TRACE);
+        }
+
+        int dim = matrix.getNumRows();
+        double sum = 0;
+        for (int i = 0; i < dim; i++) {
+            sum += matrix.getEntryAt(i, i);
+        }
+        return sum;
     }
 
     private static EuclideanMatrix matrixWithoutRow(EuclideanMatrix matrix, int rowToRemove) {
