@@ -1,3 +1,5 @@
+import matrixvectormath.EuclideanMatrix;
+import matrixvectormath.MatrixCalculator;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

@@ -1,3 +1,4 @@
+import matrixvectormath.EuclideanMatrix;
 import org.junit.Test;
 
 import java.util.Arrays;
