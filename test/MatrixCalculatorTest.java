@@ -260,4 +260,33 @@ public class MatrixCalculatorTest {
         double result = MatrixCalculator.trace(matrix);
         assertEquals(15.0, result, 0);
     }
+
+    @Test
+    public void testTransposeSingleEntry() {
+        EuclideanMatrix matrix = new EuclideanMatrix(
+                Arrays.asList(-4.0)
+        );
+
+        EuclideanMatrix transposedMatrix = MatrixCalculator.transpose(matrix);
+        EuclideanMatrix expectedMatrix = new EuclideanMatrix(
+                Arrays.asList(-4.0)
+        );
+        assertEquals(transposedMatrix, expectedMatrix);
+    }
+
+    @Test
+    public void testTranspose() {
+        EuclideanMatrix matrix = new EuclideanMatrix(
+                Arrays.asList(12.0, 4.0, 12.0),
+                Arrays.asList(1.0, -5.0, -6.0)
+        );
+
+        EuclideanMatrix transposedMatrix = MatrixCalculator.transpose(matrix);
+        EuclideanMatrix expectedMatrix = new EuclideanMatrix(
+                Arrays.asList(12.0, 1.0),
+                Arrays.asList(4.0, -5.0),
+                Arrays.asList(12.0, -6.0)
+        );
+        assertEquals(transposedMatrix, expectedMatrix);
+    }
 }

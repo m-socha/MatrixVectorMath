@@ -192,6 +192,19 @@ public class MatrixCalculator {
         return sum;
     }
 
+    public static EuclideanMatrix transpose(EuclideanMatrix matrix) {
+        List<List<Double>> transposedEntries = new ArrayList();
+        populateEntriesWithEmptyRows(transposedEntries, matrix.getNumCols());
+
+        for (int row = 0; row < matrix.getNumRows(); row++) {
+            for (int col = 0; col < matrix.getNumCols(); col++) {
+                transposedEntries.get(col).add(row, matrix.getEntryAt(row, col));
+            }
+        }
+
+        return new EuclideanMatrix(transposedEntries);
+    }
+
     private static EuclideanMatrix matrixWithoutRow(EuclideanMatrix matrix, int rowToRemove) {
         List<List<Double>> entries = new ArrayList();
         populateEntriesWithEmptyRows(entries, matrix.getNumRows() - 1);
